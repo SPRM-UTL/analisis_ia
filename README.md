@@ -1,9 +1,5 @@
 # Analisis de Inteligencia Artificial - Manordomo
 
-Este repositorio contiene la implementacion de algoritmos de Machine Learning No Supervisado para el proyecto Manordomo, enfocado en el reconocimiento de gestos mediante reduccion de dimensionalidad y agrupacion.
-
-## Contenido del Repositorio
-
 1. **`dataset_gestos.csv`**: Un conjunto de datos con 300 muestras correspondientes a 3 gestos diferentes (Puno, Palma Abierta, Paz). Contiene 63 variables que representan las coordenadas tridimensionales (X, Y, Z) de los 21 puntos (landmarks) de la mano generados a traves del mapeo espacial.
 2. **`generar_csv.py`**: Script de Python responsable de generar la geometria 3D de las manos para crear las coordenadas simuladas y realistas del dataset, incorporando ruido estadistico natural.
 3. **`modelo_no_supervisado.py`**: El script principal que procesa los datos del CSV.
@@ -37,6 +33,3 @@ pip install -r requirements.txt
 ```powershell
 python modelo_no_supervisado.py
 ```
-*(Para generar un nuevo dataset, se puede ejecutar de la misma manera `python generar_csv.py`)*
-
-Al finalizar, puedes salir del entorno virtual ejecutando el comando `deactivate`.
