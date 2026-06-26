@@ -4,25 +4,19 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 
-# 1. Generar Dataset Simulado de Manordomo (Puntos de la mano de MediaPipe)
-# MediaPipe Hand Landmarks: 21 puntos (x, y, z) = 63 características.
-print("Generando datos simulados de 3 gestos (Puño, Palma Abierta, Paz)...")
-np.random.seed(42)
-num_samples_per_gesture = 100
+# 1. Cargar Dataset Real (Puntos de la mano de MediaPipe)
+# El CSV contiene 63 características (21 puntos con x, y, z)
+print("Cargando datos desde dataset_gestos.csv...")
+df = pd.read_csv("dataset_gestos.csv")
 
-# Gesto 1: Puño (Dedos cerrados)
-fist_data = np.random.normal(loc=0.2, scale=0.05, size=(num_samples_per_gesture, 63))
-# Gesto 2: Palma Abierta (Dedos extendidos)
-palm_data = np.random.normal(loc=0.8, scale=0.05, size=(num_samples_per_gesture, 63))
-# Gesto 3: Paz (Índice y medio extendidos)
-peace_data = np.random.normal(loc=0.5, scale=0.05, size=(num_samples_per_gesture, 63))
+# Separar las características (X) y la etiqueta real (y_real)
+X_raw = df.drop(columns=["etiqueta_real"]).values
+y_labels = df["etiqueta_real"].values
 
-# Unir todo el dataset (Total: 300 muestras, 63 columnas)
-X_raw = np.vstack((fist_data, palm_data, peace_data))
-
-# Etiquetas REALES solo para colorear después y comprobar si el modelo adivinó bien (El modelo NO las verá)
-y_real = np.array([0]*100 + [1]*100 + [2]*100)
-gestures = {0: 'Puño', 1: 'Palma Abierta', 2: 'Paz'}
+# Convertir las etiquetas de texto a números para graficarlas después (solo para validación visual)
+# El modelo K-Means NUNCA verá estas etiquetas al agrupar
+label_map = {'Puño': 0, 'Palma Abierta': 1, 'Paz': 2}
+y_real = np.array([label_map[label] for label in y_labels])
 
 print(f"Dimensiones del dataset original: {X_raw.shape}")
 
